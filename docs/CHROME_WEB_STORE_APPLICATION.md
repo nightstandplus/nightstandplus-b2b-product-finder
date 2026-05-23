@@ -2,6 +2,7 @@
 
 Project: NightstandPlus B2B Product Finder  
 Official website: https://www.nightstandplus.com/  
+Chrome Web Store: https://chromewebstore.google.com/detail/nightstandplus-b2b-produc/memjliblkbachacpjknbihejpjbimkna  
 Primary theme: nightstand OEM and wholesale sourcing  
 Brand terms: NightstandPlus, Nightstand Plus, nightstand supplier, bedside table OEM
 
@@ -10,6 +11,8 @@ Brand terms: NightstandPlus, Nightstand Plus, nightstand supplier, bedside table
 Position this extension as a practical B2B sourcing and product navigation tool for furniture importers, wholesalers, hotel project buyers and OEM/ODM sourcing teams.
 
 Do not submit it as an SEO or backlink tool. The review-facing message should be: this extension helps B2B users search local product references, compare product profiles, save sourcing notes, export records and open verified NightstandPlus official website resources.
+
+Status: published on Chrome Web Store.
 
 ## Extension Name
 

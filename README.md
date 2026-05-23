@@ -4,6 +4,10 @@ A lightweight Chrome extension for furniture importers, wholesalers, hotel proje
 
 Official website: [https://www.nightstandplus.com/](https://www.nightstandplus.com/)
 
+Chrome Web Store: [NightstandPlus B2B Product Finder](https://chromewebstore.google.com/detail/nightstandplus-b2b-produc/memjliblkbachacpjknbihejpjbimkna)
+
+GitHub Pages demo: [https://nightstandplus.github.io/nightstandplus-b2b-product-finder/](https://nightstandplus.github.io/nightstandplus-b2b-product-finder/)
+
 ## What It Does
 
 NightstandPlus B2B Product Finder works without a website search feature. The extension keeps a local product index and opens verified official NightstandPlus routes only when the user clicks a link.
@@ -24,6 +28,12 @@ Core features:
 - Wholesalers can export product profiles for internal sourcing notes.
 - OEM and ODM buyers can prepare structured inquiries before contacting NightstandPlus.
 - Marketing teams can publish a practical Chrome extension and GitHub project that naturally references the official website.
+
+## Install
+
+Install the published extension from Chrome Web Store:
+
+[NightstandPlus B2B Product Finder](https://chromewebstore.google.com/detail/nightstandplus-b2b-produc/memjliblkbachacpjknbihejpjbimkna)
 
 ## Install Locally
 
