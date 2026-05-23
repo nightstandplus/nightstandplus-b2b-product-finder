@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NightstandPlus B2B Product Finder</title>
+    <meta
+      name="description"
+      content="Official demo page for the NightstandPlus B2B Product Finder Chrome extension. Search nightstand, bedside table and bedside cabinet OEM/wholesale product references, compare products and prepare RFQ inquiries."
+    >
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #1f2523;
+        --muted: #68716d;
+        --line: #ded8ce;
+        --soft: #f6f2ec;
+        --brand: #2f5e55;
+        --brand-dark: #1f403a;
+        --accent: #9a6a2f;
+        --panel: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--ink);
+        background: var(--panel);
+        line-height: 1.55;
+      }
+
+      a {
+        color: var(--brand-dark);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .topbar {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.96);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .nav {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 14px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 760;
+      }
+
+      .brand img {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+      }
+
+      .navlinks {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        font-size: 14px;
+      }
+
+      .hero {
+        background: linear-gradient(180deg, #f7f2ea 0%, #ffffff 82%);
+      }
+
+      .hero-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 72px 22px 48px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 500px);
+        gap: 44px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 760;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 720px;
+        font-size: clamp(38px, 6vw, 68px);
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin: 22px 0 0;
+        max-width: 680px;
+        color: var(--muted);
+        font-size: 19px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        border-radius: 7px;
+        padding: 0 18px;
+        color: #ffffff;
+        background: var(--brand);
+        font-weight: 700;
+      }
+
+      .button.secondary {
+        border: 1px solid var(--line);
+        color: var(--ink);
+        background: #ffffff;
+      }
+
+      .preview {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: 0 26px 68px rgba(47, 94, 85, 0.14);
+      }
+
+      .section {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 54px 22px;
+      }
+
+      .section h2 {
+        margin: 0 0 18px;
+        font-size: 30px;
+        line-height: 1.18;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+        background: #ffffff;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .screenshots {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .screenshots img {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 24px 22px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 14px;
+      }
+
+      @media (max-width: 780px) {
+        .hero-inner,
+        .grid,
+        .screenshots {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-inner {
+          padding-top: 46px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav">
+        <a class="brand" href="https://www.nightstandplus.com/" target="_blank" rel="noopener noreferrer">
+          <img src="../icons/icon-48.png" alt="">
+          <span>NightstandPlus</span>
+        </a>
+        <div class="navlinks">
+          <a href="https://www.nightstandplus.com/products/" target="_blank" rel="noopener noreferrer">Products</a>
+          <a href="https://www.nightstandplus.com/oem-odm/" target="_blank" rel="noopener noreferrer">OEM/ODM</a>
+          <a href="https://www.nightstandplus.com/contact/" target="_blank" rel="noopener noreferrer">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <p class="eyebrow">Chrome extension for B2B furniture buyers</p>
+            <h1>NightstandPlus B2B Product Finder</h1>
+            <p class="lead">
+              Search nightstand, bedside table and bedside cabinet OEM/wholesale product references, compare product profiles, save sourcing notes and prepare RFQ inquiry drafts.
+            </p>
+            <div class="actions">
+              <a class="button" href="https://www.nightstandplus.com/" target="_blank" rel="noopener noreferrer">Official Website</a>
+              <a class="button secondary" href="https://www.nightstandplus.com/oem-odm/" target="_blank" rel="noopener noreferrer">OEM/ODM</a>
+            </div>
+          </div>
+          <img class="preview" src="assets/01-product-search.png" alt="NightstandPlus product search screenshot">
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Built for Sourcing Workflows</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Product Discovery</h3>
+            <p>Search local product references by size, feature, market, OEM, wholesale and bedside furniture terms.</p>
+          </article>
+          <article class="card">
+            <h3>Buyer Comparison</h3>
+            <p>Compare dimensions, features, MOQ, packaging and official NightstandPlus URLs before shortlisting.</p>
+          </article>
+          <article class="card">
+            <h3>RFQ Preparation</h3>
+            <p>Copy an English inquiry draft for OEM/ODM and wholesale communication with the official team.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Extension Screenshots</h2>
+        <div class="screenshots">
+          <img src="assets/02-official-navigation.png" alt="Official navigation screenshot">
+          <img src="assets/03-product-comparison.png" alt="Product comparison screenshot">
+          <img src="assets/04-export-saved-products.png" alt="Export saved products screenshot">
+          <img src="assets/05-rfq-inquiry-draft.png" alt="RFQ inquiry draft screenshot">
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      NightstandPlus B2B Product Finder is an independent Chrome extension project for verified NightstandPlus product navigation and sourcing preparation.
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --canvas: #f6f2ec;
+        --panel: #ffffff;
+        --ink: #1f2523;
+        --muted: #68716d;
+        --brand: #2f5e55;
+        --brand-dark: #1f403a;
+        --accent: #9a6a2f;
+        --line: #ded8ce;
+        --soft: #fbf8f3;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        color: var(--ink);
+        background: var(--canvas);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background:
+          linear-gradient(90deg, rgba(47, 94, 85, 0.07) 1px, transparent 1px),
+          linear-gradient(0deg, rgba(47, 94, 85, 0.05) 1px, transparent 1px),
+          linear-gradient(135deg, #f7f2ea 0%, #efe4d5 50%, #fbf8f3 100%);
+        background-size: 96px 96px, 96px 96px, auto;
+      }
+
+      .ambient-word {
+        position: absolute;
+        right: -54px;
+        bottom: 22px;
+        color: rgba(31, 64, 58, 0.06);
+        font-size: 156px;
+        font-weight: 900;
+        white-space: nowrap;
+        z-index: 0;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 72px;
+        width: 100%;
+        height: 100%;
+        padding: 108px 128px 98px;
+      }
+
+      .copy {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .brand-lockup img {
+        width: 84px;
+        height: 84px;
+        border: 1px solid rgba(47, 94, 85, 0.18);
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 18px 38px rgba(31, 64, 58, 0.12);
+      }
+
+      .brand-lockup strong {
+        display: block;
+        color: var(--brand-dark);
+        font-size: 32px;
+        line-height: 1.05;
+      }
+
+      .brand-lockup span {
+        display: block;
+        margin-top: 8px;
+        color: var(--accent);
+        font-size: 18px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .kicker {
+        width: fit-content;
+        border: 1px solid rgba(154, 106, 47, 0.38);
+        border-radius: 999px;
+        padding: 10px 16px;
+        color: #7a501f;
+        background: rgba(255, 255, 255, 0.72);
+        font-size: 21px;
+        font-weight: 800;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        color: var(--brand-dark);
+        font-size: 80px;
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        max-width: 760px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 32px;
+        line-height: 1.35;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .chips span {
+        border: 1px solid rgba(47, 94, 85, 0.22);
+        border-radius: 8px;
+        padding: 12px 16px;
+        color: var(--brand-dark);
+        background: #ffffff;
+        font-size: 20px;
+        font-weight: 800;
+        box-shadow: 0 8px 20px rgba(31, 64, 58, 0.07);
+      }
+
+      .browser {
+        align-self: center;
+        min-width: 0;
+        border: 1px solid rgba(47, 94, 85, 0.18);
+        border-radius: 20px;
+        overflow: hidden;
+        background: var(--panel);
+        box-shadow: 0 34px 86px rgba(31, 64, 58, 0.16);
+      }
+
+      .browser-bar {
+        display: grid;
+        grid-template-columns: 74px 1fr 142px;
+        align-items: center;
+        gap: 18px;
+        border-bottom: 1px solid var(--line);
+        padding: 16px 20px;
+        background: #fbf8f3;
+      }
+
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .dots i {
+        display: block;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #d1c4b4;
+      }
+
+      .address,
+      .status-pill {
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 9px 12px;
+        color: var(--muted);
+        background: #ffffff;
+        font-size: 17px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .status-pill {
+        color: #ffffff;
+        background: var(--brand);
+        border-color: var(--brand);
+        text-align: center;
+        font-weight: 800;
+      }
+
+      .popup-window {
+        display: grid;
+        gap: 18px;
+        padding: 24px;
+      }
+
+      .search-line {
+        display: grid;
+        grid-template-columns: 1fr 118px;
+        gap: 12px;
+      }
+
+      .input,
+      .button {
+        border-radius: 8px;
+        padding: 15px 16px;
+        font-size: 18px;
+      }
+
+      .input {
+        border: 1px solid var(--line);
+        color: var(--muted);
+        background: #ffffff;
+      }
+
+      .button {
+        color: #ffffff;
+        background: var(--brand);
+        text-align: center;
+        font-weight: 800;
+      }
+
+      .product-card,
+      .route-card,
+      .compare-card,
+      .export-card,
+      .rfq-card,
+      .review-item {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--soft);
+      }
+
+      .product-card {
+        display: grid;
+        gap: 10px;
+        padding: 18px;
+      }
+
+      .product-card strong,
+      .route-card b,
+      .compare-card h3,
+      .export-card b,
+      .rfq-card b,
+      .review-item b {
+        color: var(--ink);
+        font-size: 23px;
+        line-height: 1.25;
+      }
+
+      .product-card p,
+      .route-card span,
+      .export-card p,
+      .rfq-card p,
+      .review-item span {
+        margin: 0;
+        color: var(--muted);
+        font-size: 19px;
+        line-height: 1.42;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 6px;
+      }
+
+      .actions span {
+        border-radius: 8px;
+        padding: 12px 8px;
+        color: #ffffff;
+        background: var(--brand);
+        text-align: center;
+        font-size: 17px;
+        font-weight: 800;
+      }
+
+      .site-map,
+      .export-panel,
+      .review-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        padding: 24px;
+      }
+
+      .route-card,
+      .export-card,
+      .rfq-card {
+        display: grid;
+        gap: 8px;
+        padding: 18px;
+      }
+
+      .compare-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        padding: 24px;
+      }
+
+      .compare-card {
+        display: grid;
+        gap: 14px;
+        padding: 18px;
+      }
+
+      .compare-card h3 {
+        margin: 0;
+      }
+
+      .field {
+        display: grid;
+        gap: 4px;
+        border-top: 1px solid var(--line);
+        padding-top: 12px;
+      }
+
+      .field b {
+        color: var(--accent);
+        font-size: 17px;
+      }
+
+      .field span {
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.35;
+      }
+
+      .rfq-panel {
+        display: grid;
+        gap: 16px;
+        padding: 24px;
+      }
+
+      .rfq-card p {
+        font-size: 20px;
+      }
+
+      .privacy-strip {
+        border-radius: 12px;
+        padding: 18px 20px;
+        color: #ffffff;
+        background: var(--brand-dark);
+        font-size: 23px;
+        font-weight: 900;
+      }
+
+      .review-list {
+        grid-template-columns: 1fr;
+      }
+
+      .review-item {
+        display: grid;
+        grid-template-columns: 46px 1fr;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .check {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        color: #ffffff;
+        background: var(--brand);
+        font-size: 22px;
+        font-weight: 900;
+      }
+
+      .transition-band {
+        position: absolute;
+        inset: 0;
+        z-index: 8;
+        background: var(--brand-dark);
+        transform: translateX(-102%);
+      }
+
+      .caption {
+        position: absolute;
+        left: 128px;
+        right: 128px;
+        bottom: 42px;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        border-top: 1px solid rgba(47, 94, 85, 0.18);
+        padding-top: 18px;
+        color: #52645f;
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      .caption strong {
+        color: var(--brand-dark);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="36"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div class="ambient-word" data-layout-ignore>PRODUCT FINDER</div>
+      <audio id="voiceover" data-start="0" data-duration="25.506" data-track-index="2" data-volume="1" src="assets/voiceover.wav"></audio>
+
+      <section id="scene-1" class="scene clip" data-start="0" data-duration="6" data-track-index="1">
+        <div class="scene-content">
+          <div class="copy">
+            <div class="brand-lockup">
+              <img src="assets/logo.png" alt="">
+              <div>
+                <strong>NightstandPlus B2B Product Finder</strong>
+                <span>Chrome extension demo</span>
+              </div>
+            </div>
+            <h1>Local product search for nightstand buyers.</h1>
+            <p class="subtitle">Find nightstand, bedside table and bedside cabinet OEM or wholesale references without relying on a website search page.</p>
+            <div class="chips">
+              <span>nightstand OEM</span><span>bedside table</span><span>wholesale</span><span>factory</span>
+            </div>
+          </div>
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="address">Search: wireless charging</div>
+              <div class="status-pill">4 results</div>
+            </div>
+            <div class="popup-window">
+              <div class="search-line">
+                <div class="input">wireless charging</div>
+                <div class="button">Search</div>
+              </div>
+              <div class="product-card">
+                <strong>30cm Slim Smart Nightstand with LED Light and Wireless Charging</strong>
+                <p>Features: LED light, wireless charging, USB charging and compact storage.</p>
+                <div class="actions"><span>Open</span><span>Save</span><span>Details</span><span>Copy RFQ</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="caption"><strong>Scene 1</strong><span>Useful product search inside the extension.</span></div>
+      </section>
+
+      <section id="scene-2" class="scene clip" data-start="6" data-duration="6" data-track-index="1">
+        <div class="scene-content">
+          <div class="copy">
+            <div class="kicker">Verified official routes</div>
+            <h1>No unsupported search URLs.</h1>
+            <p class="subtitle">Shortcut buttons open maintained NightstandPlus pages for products, OEM/ODM, RFQ preparation and contact.</p>
+          </div>
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="address">https://www.nightstandplus.com/oem-odm/</div>
+              <div class="status-pill">Official</div>
+            </div>
+            <div class="site-map">
+              <div class="route-card"><b>Products</b><span>Smart nightstands, LED, wireless charging and safe storage categories.</span></div>
+              <div class="route-card"><b>OEM/ODM</b><span>Custom size, finish, smart module and packaging cooperation.</span></div>
+              <div class="route-card"><b>RFQ Guide</b><span>Buyer preparation for factory communication.</span></div>
+              <div class="route-card"><b>Contact</b><span>Inquiry path after direct user action.</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="caption"><strong>Scene 2</strong><span>Navigation is transparent and tied to sourcing tasks.</span></div>
+      </section>
+
+      <section id="scene-3" class="scene clip" data-start="12" data-duration="6" data-track-index="1">
+        <div class="scene-content">
+          <div class="copy">
+            <div class="kicker">Product comparison</div>
+            <h1>Compare two buyer profiles before shortlisting.</h1>
+            <p class="subtitle">Review dimensions, smart features, MOQ, packaging and official URLs in one workflow.</p>
+          </div>
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="address">Product Comparison</div>
+              <div class="status-pill">Compare</div>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-card">
+                <h3>50cm Wireless Charging Cabinet</h3>
+                <div class="field"><b>Dimensions</b><span>50cm wide oak-look bedside cabinet</span></div>
+                <div class="field"><b>Features</b><span>wireless charging, safe storage, drawer storage</span></div>
+                <div class="field"><b>Market</b><span>Europe, United States, wholesale furniture</span></div>
+              </div>
+              <div class="compare-card">
+                <h3>70cm Fingerprint Lock Cabinet</h3>
+                <div class="field"><b>Dimensions</b><span>70cm tall smart bedside cabinet</span></div>
+                <div class="field"><b>Features</b><span>fingerprint lock, LED light, speaker, safe storage</span></div>
+                <div class="field"><b>Market</b><span>hotel project, villa bedroom, Middle East</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="caption"><strong>Scene 3</strong><span>Comparison makes the extension a real B2B utility.</span></div>
+      </section>
+
+      <section id="scene-4" class="scene clip" data-start="18" data-duration="6" data-track-index="1">
+        <div class="scene-content">
+          <div class="copy">
+            <div class="kicker">Saved products and export</div>
+            <h1>Keep sourcing records local.</h1>
+            <p class="subtitle">Favorites use Chrome local storage. CSV and JSON exports are generated from product data shown in the popup.</p>
+            <div class="privacy-strip">No browsing history. No host access. No user data collection.</div>
+          </div>
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="address">Export sourcing records</div>
+              <div class="status-pill">Local</div>
+            </div>
+            <div class="export-panel">
+              <div class="export-card"><b>Saved products</b><p>Keep shortlisted product references for repeat buyer communication.</p></div>
+              <div class="export-card"><b>CSV export</b><p>Product name, dimensions, features, MOQ and official URL.</p></div>
+              <div class="export-card"><b>JSON profile</b><p>Structured data for internal sourcing notes.</p></div>
+              <div class="export-card"><b>Storage only</b><p>The only Chrome permission is local storage.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="caption"><strong>Scene 4</strong><span>Privacy and permission messaging is clear for review.</span></div>
+      </section>
+
+      <section id="scene-5" class="scene clip" data-start="24" data-duration="6" data-track-index="1">
+        <div class="scene-content">
+          <div class="copy">
+            <div class="kicker">RFQ inquiry draft</div>
+            <h1>Help OEM buyers ask better questions.</h1>
+            <p class="subtitle">The draft requests MOQ, lead time, FOB price range, packaging, finishes, OEM options and export documents.</p>
+          </div>
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="address">Inquiry Draft</div>
+              <div class="status-pill">RFQ</div>
+            </div>
+            <div class="rfq-panel">
+              <div class="rfq-card"><b>Hello NightstandPlus team,</b><p>I am interested in the 30cm Slim Smart Nightstand with LED Light and Wireless Charging.</p></div>
+              <div class="rfq-card"><b>Please share:</b><p>MOQ, FOB price range, lead time, packaging details, finishes, OEM/ODM options and export documents.</p></div>
+              <div class="rfq-card"><b>Reference link:</b><p>https://www.nightstandplus.com/products/30cm-smart-nightstand-led-wireless-charging/</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="caption"><strong>Scene 5</strong><span>Inquiry support can help real wholesale and factory buyers.</span></div>
+      </section>
+
+      <section id="scene-6" class="scene clip" data-start="30" data-duration="6" data-track-index="1">
+        <div class="scene-content">
+          <div class="copy">
+            <div class="brand-lockup">
+              <img src="assets/logo.png" alt="">
+              <div>
+                <strong>NightstandPlus B2B Product Finder</strong>
+                <span>Ready for store review</span>
+              </div>
+            </div>
+            <h1>Search. Compare. Save. Export. Open official resources.</h1>
+            <p class="subtitle">A focused Chrome extension for B2B nightstand, bedside table and bedside cabinet sourcing.</p>
+          </div>
+          <div class="browser">
+            <div class="browser-bar">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="address">Chrome Web Store positioning</div>
+              <div class="status-pill">Productivity</div>
+            </div>
+            <div class="review-list">
+              <div class="review-item"><div class="check">✓</div><div><b>Single purpose</b><span>B2B buyers find NightstandPlus product references.</span></div></div>
+              <div class="review-item"><div class="check">✓</div><div><b>Low permission</b><span>Only storage permission for local favorites.</span></div></div>
+              <div class="review-item"><div class="check">✓</div><div><b>User action links</b><span>Official website routes open only after user clicks.</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="caption"><strong>Scene 6</strong><span>The demo explains the practical value, not SEO claims.</span></div>
+      </section>
+
+      <div class="transition-band" data-layout-ignore></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      gsap.defaults({ ease: "power2.out" });
+
+      const tl = gsap.timeline({ paused: true });
+      tl.to(".ambient-word", { x: -36, y: -12, duration: 36, ease: "none" }, 0);
+
+      const starts = [0, 6, 12, 18, 24, 30];
+      starts.forEach((start, index) => {
+        const sceneEl = document.getElementById("scene-" + (index + 1));
+        const copyItems = sceneEl.querySelectorAll(".copy > *");
+        const panel = sceneEl.querySelectorAll(".browser");
+        const cards = sceneEl.querySelectorAll(".product-card, .route-card, .compare-card, .export-card, .rfq-card, .review-item");
+        const caption = sceneEl.querySelector(".caption");
+
+        tl.set(sceneEl, { opacity: 1 }, start);
+        tl.from(copyItems, { y: 42, opacity: 0, duration: 0.62, stagger: 0.08 }, start + 0.22);
+        tl.from(panel, { x: 58, opacity: 0, scale: 0.985, duration: 0.72 }, start + 0.42);
+        if (cards.length) {
+          tl.from(cards, { y: 26, opacity: 0, duration: 0.52, stagger: 0.06 }, start + 0.85);
+        }
+        tl.from(caption, { y: 20, opacity: 0, duration: 0.42 }, start + 1.05);
+
+        if (index < starts.length - 1) {
+          tl.fromTo(".transition-band", { x: "-102%" }, { x: "102%", duration: 0.72, ease: "power3.inOut" }, start + 5.28);
+          tl.set(sceneEl, { opacity: 0 }, start + 5.64);
+        } else {
+          tl.to([copyItems, panel, caption], { opacity: 0, y: -24, duration: 0.45, stagger: 0.025 }, start + 5.35);
+        }
+      });
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

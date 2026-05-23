@@ -1,0 +1,15 @@
+{
+  "name": "nightstandplus-b2b-product-finder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chrome extension for NightstandPlus B2B nightstand, bedside table and OEM product discovery.",
+  "scripts": {
+    "assets:store": "node scripts/generate-store-assets.js",
+    "test:smoke": "node tests/smoke-test.js",
+    "test:extension": "node tests/puppeteer-extension-test.js",
+    "dist": "rm -rf dist && mkdir -p dist/nightstandplus-b2b-product-finder && cp -R manifest.json popup.html popup.css popup.js icons PRIVACY.md README.md dist/nightstandplus-b2b-product-finder/ && find dist/nightstandplus-b2b-product-finder -name .DS_Store -delete && cd dist && zip -qr nightstandplus-b2b-product-finder-1.0.0.zip nightstandplus-b2b-product-finder"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.9.0"
+  }
+}

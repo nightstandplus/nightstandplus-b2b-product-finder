@@ -1,0 +1,11 @@
+NightstandPlus B2B Product Finder helps furniture buyers search local nightstand product references.
+
+It opens verified official product, OEM and contact routes only when the user chooses them.
+
+Buyers can compare dimensions, features, MOQ and packaging before preparing a shortlist.
+
+Saved products and CSV or JSON exports stay local in the browser.
+
+The RFQ draft helps OEM and wholesale buyers ask for MOQ, lead time, pricing and packaging details.
+
+The extension stays focused: search, compare, save, export and open official NightstandPlus resources.
