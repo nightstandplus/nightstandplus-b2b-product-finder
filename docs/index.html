@@ -199,10 +199,47 @@
 
       .footer {
         border-top: 1px solid var(--line);
-        padding: 24px 22px;
         color: var(--muted);
-        text-align: center;
         font-size: 14px;
+      }
+
+      .social-links,
+      .footer-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .social-links {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .social-title {
+        color: var(--muted);
+        font-weight: 720;
+      }
+
+      .social-list {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .social-list a {
+        min-height: 36px;
+        padding: 7px 12px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 720;
+        background: #fff;
       }
 
       @media (max-width: 780px) {
@@ -221,14 +258,14 @@
   <body>
     <header class="topbar">
       <nav class="nav">
-        <a class="brand" href="https://www.nightstandplus.com/" target="_blank" rel="noopener noreferrer">
+        <a class="brand" href="https://www.nightstandplus.com/" target="_blank" rel="noopener">
           <img src="assets/icon-48.png" alt="">
           <span>NightstandPlus</span>
         </a>
         <div class="navlinks">
-          <a href="https://www.nightstandplus.com/products/" target="_blank" rel="noopener noreferrer">Products</a>
-          <a href="https://www.nightstandplus.com/oem-odm/" target="_blank" rel="noopener noreferrer">OEM/ODM</a>
-          <a href="https://www.nightstandplus.com/contact/" target="_blank" rel="noopener noreferrer">Contact</a>
+          <a href="https://www.nightstandplus.com/products/" target="_blank" rel="noopener">Products</a>
+          <a href="https://www.nightstandplus.com/oem-odm/" target="_blank" rel="noopener">OEM/ODM</a>
+          <a href="https://www.nightstandplus.com/contact/" target="_blank" rel="noopener">Contact</a>
         </div>
       </nav>
     </header>
@@ -243,8 +280,8 @@
               Search nightstand, bedside table and bedside cabinet OEM/wholesale product references, compare product profiles, save sourcing notes and prepare RFQ inquiry drafts.
             </p>
             <div class="actions">
-              <a class="button" href="https://www.nightstandplus.com/" target="_blank" rel="noopener noreferrer">Official Website</a>
-              <a class="button secondary" href="https://www.nightstandplus.com/oem-odm/" target="_blank" rel="noopener noreferrer">OEM/ODM</a>
+              <a class="button" href="https://www.nightstandplus.com/" target="_blank" rel="noopener">Official Website</a>
+              <a class="button secondary" href="https://www.nightstandplus.com/oem-odm/" target="_blank" rel="noopener">OEM/ODM</a>
             </div>
           </div>
           <img class="preview" src="assets/01-product-search.png" alt="NightstandPlus product search screenshot">
@@ -281,7 +318,23 @@
     </main>
 
     <footer class="footer">
-      NightstandPlus B2B Product Finder is an independent Chrome extension project for verified NightstandPlus product navigation and sourcing preparation.
+      <section class="social-links" aria-label="NightstandPlus social profiles">
+        <span class="social-title">Connect with NightstandPlus</span>
+        <div class="social-list">
+          <a href="https://www.facebook.com/nightstandplus" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/shihengnightstand/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/nightstandplus/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.youtube.com/@nightstandplus" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://www.tiktok.com/@nightstandpluscom" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </section>
+      <div class="footer-inner">
+        <span>NightstandPlus B2B Product Finder is an independent Chrome extension project for verified NightstandPlus product navigation and sourcing preparation.</span>
+        <span>
+          <a href="https://www.nightstandplus.com/contact/" target="_blank" rel="noopener">Contact</a> ·
+          <a href="https://www.nightstandplus.com/chrome-extension-privacy/" target="_blank" rel="noopener">Chrome Extension Privacy</a>
+        </span>
+      </div>
     </footer>
   </body>
 </html>
